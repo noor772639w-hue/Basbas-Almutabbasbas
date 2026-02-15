@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إلى بسبس - الحب الأكبر</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        body { 
+            margin: 0; 
+            background: radial-gradient(circle, #001a33 0%, #000000 100%); 
+            color: #fff; 
+            font-family: 'Cairo', sans-serif; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            position: relative; 
+        }
+        
+        /* كلمات الأغنية بالأعلى */
+        #lyrics-container { 
+            position: absolute; 
+            top: 10%; 
+            width: 100%; 
+            text-align: center; 
+            height: 120px; 
+            z-index: 1; 
+        }
+        .lyric-text { 
+            font-size: 1.6rem; 
+            color: #87CEEB; 
+            opacity: 0; 
+            transition: opacity 1.5s; 
+            position: absolute; 
+            width: 100%; 
+            left: 0; 
+            text-shadow: 0 0 15px rgba(135, 206, 235, 0.7); 
+            font-weight: bold;
+        }
+
+        /* المربع الشفاف والوردة */
+        .flower-box { 
+            border: 1px solid rgba(135, 206, 235, 0.2); 
+            padding: 50px; 
+            border-radius: 30px; 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(15px); 
+            z-index: 10; 
+            cursor: pointer; 
+            transition: 0.5s; 
+            text-align: center; 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .flower-box:hover { background: rgba(255, 255, 255, 0.07); }
+        
+        .flower { font-size: 6rem; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; }
+        .flower.bloom { transform: scale(1.4) rotate(360deg); }
+
+        /* رسالة الحب النهائية */
+        #love-message { 
+            display: none; 
+            max-width: 550px; 
+            padding: 30px; 
+            line-height: 1.8; 
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            animation: fadeInMessage 2.5s forwards; 
+            z-index: 20;
+            text-align: center;
+        }
+        .gold-content { 
+            color: #ffd700; 
+            font-size: 1.3rem; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8); 
+        }
+
+        @keyframes fadeInMessage { 
+            from { opacity: 0; transform: scale(0.9); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.mboxdrive.com/Ismail%20Al%20Farouji%20-%20Tasalini.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="lyrics-container">
+        <div class="lyric-text" id="l1">تسأليني.. ليش أحبج؟ ليش أحبج تسأليني</div>
+        <div class="lyric-text" id="l2">الناس ما سألوا شمسهم ليش تنطيهم ضوة</div>
+        <div class="lyric-text" id="l3">الناس ما سألوا كمرهم ليش يجمعهم سوة</div>
+        <div class="lyric-text" id="l4">عيوني من شافت عيونج تعلمت معنى الحنين</div>
+        <div class="lyric-text" id="l5">ومن أغني أحب وحدج تسمعيني..</div>
+    </div>
+
+    <div class="flower-box" id="box" onclick="bloomFlower()">
+        <div class="flower" id="rose">🌹</div>
+        <p id="hint" style="color: #87CEEB; margin-top: 15px; font-size: 0.9rem; letter-spacing: 1px;">اضغطي لتتفتح الوردة..</p>
+    </div>
+
+    <div id="love-message">
+        <h2 style="color: #87CEEB; margin-bottom: 20px;">من نورج إلى بسبسي الغالية.. 🩺💙</h2>
+        <div class="gold-content">
+            بسبسي.. مثل ما الناس ما سألوا شمسهم ليش تنطيهم ضوة، أنا ما أسأل قلبي ليش يحبج هالكثر، لأن حبج صار هو الأكسجين اللي أتنفسه. إنتي اللي نورتي عيوني وعلمتيها معنى الحنين، وفرحتي قلبي وصرتي أهلي وناسي كلهم.<br><br>
+            وأهم شي أريد أثبته الج اليوم، إن مهما صار ومهما واجهنا، راح تبقين تحبيني وراح أبقى أحبج، والحب اللي بينا راح يكون أكبر شي بالكون. وعد مني يا بسبس، حيكون حبنا هو القمة وهو المنتصر دائماً، لأن أرواحنا اندمجت وماكو قوة تكدر تفصلها.<br><br>
+            خليج واثقة بنورج وبحبنا، لأن إنتي زهرتي اللي ما تذبل.<br><br>
+            <strong style="font-size: 1.5rem;">أحبج حب ماله نهاية.. 🫳🤏</strong>
+        </div>
+    </div>
+
+    <script>
+        const lyrics = ["l1", "l2", "l3", "l4", "l5"];
+        let currentLyric = 0;
+
+        function showLyrics() {
+            if(currentLyric > 0) document.getElementById(lyrics[currentLyric-1]).style.opacity = 0;
+            if(currentLyric < lyrics.length) {
+                document.getElementById(lyrics[currentLyric]).style.opacity = 1;
+                currentLyric++;
+                setTimeout(showLyrics, 4500); // عرض كل مقطع لمدة 4.5 ثانية
+            }
+        }
+
+        function bloomFlower() {
+            // تشغيل الموسيقى
+            const music = document.getElementById('bg-music');
+            music.play().catch(e => console.log("Music play blocked"));
+            
+            // أنيميشن الوردة
+            const rose = document.getElementById('rose');
+            rose.innerHTML = "🌸";
+            rose.classList.add('bloom');
+            
+            document.getElementById('hint').style.display = 'none';
+            
+            // بدء عرض الكلمات
+            showLyrics();
+            
+            // إظهار الرسالة بعد ثانية
+            setTimeout(() => {
+                document.getElementById('box').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('box').style.display = 'none';
+                    document.getElementById('love-message').style.display = 'block';
+                }, 500);
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
+
